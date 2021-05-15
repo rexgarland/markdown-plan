@@ -1,18 +1,6 @@
 # markdown-plan
 `markdown-plan` is a project planning syntax based on markdown. This extended syntax includes time estimates and time measurements, helping you improve your planning accuracy. It was designed for software freelancers who want to organize technical work, but I imagine it could be useful elsewhere.
 
-## Installation
-
-```
-pip install mdplan
-```
-
-## Getting started
-
-Trye the following example to make sure everything works. 
-
-Copy the following markdown into a text file named `website.plan.md`.
-
 ```
 # Bring up website [by 12-10]
 - purchase domain {30 mins} [20 mins]
@@ -25,9 +13,18 @@ Copy the following markdown into a text file named `website.plan.md`.
     - secure website with https
 ```
 
-Then run `mdplan webside.plan.md` from within the same directory to view the plan as a gantt chart.
-
 ![example gantt chart in the terminal](images/example.png)
+(the tick mark scale is in hours)
+
+## Installation
+
+```
+pip install mdplan
+```
+
+## Getting started
+
+Download one of the example files in `examples/` and run `mdplan [file]` to make sure it works on your machine.
 
 ## Reference
 
