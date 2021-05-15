@@ -19,7 +19,7 @@
 ## Installation
 
 ```
-pip install mdplan
+pip install markdown-plan
 ```
 
 ## Getting started
