@@ -107,6 +107,13 @@ In this case, the file `./other.plan.md` (relative to the current file) is searc
 
 `cd` into the `example` directory and try running `mdplan gantt` on any of the examples. 
 
+## Future work
+
+Tools for:
+* viewing deadlines on the terminal gantt chart
+* automatically scheduling tasks where order is ambiguous
+* `--csv`: exporting everything as a csv
+
 ## Acknowledgements
 
 This project was inspired by Thomas Figg's ["Programming is Terrible"](https://www.youtube.com/watch?v=csyL9EC0S0c) talk and Andrew Steel's [gantt](https://github.com/andrew-ls/gantt) repo.
