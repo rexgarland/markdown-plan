@@ -7,8 +7,8 @@ All time units are in hours.
 import curses
 import logging
 
-from plan import Plan
-import settings
+from .plan import Plan
+from . import settings
 
 if settings.DEBUG:
     logging.basicConfig(filename='render.log', filemode='a', level=logging.INFO)

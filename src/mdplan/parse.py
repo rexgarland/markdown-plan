@@ -1,5 +1,6 @@
 from datetime import date, time, datetime, timedelta
-from mdplan import utils
+
+from . import utils
 
 TODAY = date.today()
 NOW = datetime.now()

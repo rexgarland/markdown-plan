@@ -1,9 +1,10 @@
 from datetime import datetime, timedelta
 import time
-from mdplan.gantt import GanttEvent, GanttDuration
 import random
-from mdplan import parse
 from functools import cached_property
+
+from .gantt import GanttEvent, GanttDuration
+from . import parse
 
 NOW = datetime.now()
 

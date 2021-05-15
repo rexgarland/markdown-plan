@@ -4,9 +4,9 @@ This module handles the internal gantt representations of event time and duratio
 
 import datetime as dt
 
-import utils
-import parse
-from settings import WORK_HOURS, WEEKEND
+from . import utils
+from . import parse
+from .settings import WORK_HOURS, WEEKEND
 
 TODAY = dt.date.today()
 NOW = dt.datetime.now()

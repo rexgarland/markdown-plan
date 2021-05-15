@@ -1,8 +1,8 @@
 from pathlib import Path
 
-import utils
-import parse
-from task import Task, parse_line
+from . import utils
+from . import parse
+from .task import Task, parse_line
 
 def get_text_forgiving(obj):
     if type(obj) is str:

@@ -1,8 +1,9 @@
-from mdplan import parse
-from mdplan import utils
 from datetime import date, datetime
-from gantt import GanttDuration, GanttEvent
 from pathlib import Path
+
+from .gantt import GanttDuration, GanttEvent
+from . import parse
+from . import utils
 
 NOW = datetime.now()
 TODAY = date.today()

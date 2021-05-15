@@ -6,4 +6,6 @@ build/
 issues/
 **/*.egg-info/
 local/
-./render.log
+**/render.log
+.pypirc
+setup.cfg
