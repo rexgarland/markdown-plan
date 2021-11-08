@@ -69,21 +69,21 @@ def scroll(state, key):
     elif key==settings.KEY_LEFT:
         state[focus].scroll(-1,0)
     elif key==settings.KEY_UP:
-        state['tree'].scroll(0,-1)
+        state['plan'].scroll(0,-1)
         state['gantt'].scroll(0,-1)
     elif key==settings.KEY_DOWN:
-        state['tree'].scroll(0,1)
+        state['plan'].scroll(0,1)
         state['gantt'].scroll(0,1)
 
 def draw(scr, state):
     scr.clear()
     h, w = scr.getmaxyx()
-    state['tree'].update_window(w//3, h)
-    state['tree'].refresh(0,0)
+    state['plan'].update_window(w//3, h)
+    state['plan'].refresh(0,0)
     state['gantt'].update_window(w-w//3, h)
     state['gantt'].refresh(w//3,0)
 
-def paint_duration(time, current_duration, remaining_duration, scale=1):
+def paint_duration(time, current_duration, remaining_duration, scale):
     """Returns a line of text representing a progress bar"""
     logging.info(f'time {time} current {current_duration} remaining {remaining_duration}')
     if time<0:
@@ -148,41 +148,59 @@ def create_scale(plan, width):
     line = render_scale(scale, extent)
     return scale, line
 
-def render_list(plan, width=None):
-    """Renders the tree text and gantt text to display to their respective pads"""
-    scale, scale_line = create_scale(plan, width)
+def render_list(plan, scale, scale_line):
+    """Renders the plan text and gantt text to display to their respective pads"""
     min_level = min(t.level for t in plan.tasks)
-    tree_text = '\n'.join(['  '*(t.level-min_level)+t.description for t in plan.tasks])
+    plan_text = '\n'.join(['  '*(t.level-min_level)+t.description for t in plan.tasks])
     gantt_texts = []
     acc_time = 0
     for t in plan.tasks:
-        gt = paint_duration(acc_time-t.completed_duration.hours, t.completed_duration.hours, t.remaining_duration.hours, scale=scale)
+        gt = paint_duration(acc_time-t.completed_duration.hours, t.completed_duration.hours, t.remaining_duration.hours, scale)
         gantt_texts.append(gt)
         acc_time += t.remaining_duration.hours
     gantt_text = '\n'.join(gantt_texts)
-    return '\n'+tree_text, scale_line+'\n'+gantt_text
+    return '\n'+plan_text, scale_line+'\n'+gantt_text
 
 def main(scr, plan):
     curses.curs_set(False)
+
+    state = {
+        'focus': 'plan', # can be plan or gantt
+        'hscroll': {
+            'plan': 0,
+            'gantt': 0
+        },
+        'vscroll': 0
+    }
+
+    # render text and scale bar
     h, w = scr.getmaxyx()
-    state = {'focus': 'tree'}
-    tree, gantt = render_list(plan, width=w-w//3)
-    lentree = len(tree.split('\n'))
+    scale, scale_line = create_scale(plan, w-w//3)
+    plan, gantt = render_list(plan, scale, scale_line) # get text to show
+
+    # get lengths
+    len_plan = len(plan.split('\n'))
     lengantt = len(gantt.split('\n'))
-    logging.info(f'tree is {lentree}, gantt is {lengantt}')
-    state['tree'] = Scrollable(w//3, h, tree)
-    state['tree'].create_pad()
+    logging.info(f'plan is {len_plan}, gantt is {lengantt}')
+
+    # create scrollable windows
+    state['plan'] = Scrollable(w//3, h, plan)
+    state['plan'].create_pad()
     state['gantt'] = Scrollable(w-w//3, h, gantt)
     state['gantt'].create_pad()
+
+    # initial screen
     draw(scr, state)
+
+    # event loop
     while True:
         key = state[state['focus']].pad.getch()
         if key==settings.KEY_QUIT:
             return
         elif key==settings.KEY_SWITCH_PANE:
             if state['focus']=='gantt':
-                state['focus'] = 'tree'
-                logging.info('set focus: tree')
+                state['focus'] = 'plan'
+                logging.info('set focus: plan')
             else:
                 state['focus'] = 'gantt'
                 logging.info('set focus: gantt')
@@ -190,6 +208,6 @@ def main(scr, plan):
             scroll(state, key)
         draw(scr, state)
 
-def render(**kwargs):
-    plan = Plan(**kwargs)
+def render(files):
+    plan = Plan(files)
     curses.wrapper(main, plan)

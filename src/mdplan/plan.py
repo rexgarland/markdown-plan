@@ -10,13 +10,9 @@ class Plan:
 
     See |Task| as well.
     """
-    def __init__(self, text=None, file=None, files=[]):
+    def __init__(self, files):
         self.tasks = []
         self.manual_dependencies = {}
-        if text:
-            self.add_tasks(text)
-        if file:
-            files = [file] + files
         for f in files:
             f = append_plan_extension(f)
             f = f.expanduser().resolve()
