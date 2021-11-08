@@ -2,22 +2,31 @@
 
 `markdown-plan` is a project planning syntax based on markdown. This extended syntax includes time estimates and time measurements, helping you improve your planning accuracy. It was designed for software freelancers who want to organize technical work, but I imagine it could be useful elsewhere.
 
+Time estimates are given in three "t-shirt sizes" (small, medium and large) in order to (1) put a limit on expected precision and (2) encourage breaking up larger tasks into smaller:
 ```
-# Bring up website [by 12-10]
-- purchase domain {30 mins} [20 mins]
-- prepare server
-    1. rent server {1 hr}
-    2. setup server {2-3 hours} [12-1:30pm, 2-3pm]
-    3. push and run code {20 mins}
-- connect domain to server @(domain, prepare server) {1 hr}
-    - update dns records
-    - secure website with https
+. = 4 hours
+.. = 2 days
+... = 1 week
 ```
 
-![example gantt chart in the terminal](images/example.png)
-(the tick mark scale is in hours)
+Example plan:
 
-Before using markdown-plan, this [youtube video](https://www.youtube.com/watch?v=v21jg8wb1eU&t=210s) is "required reading."
+```
+# Build iOS app [by Dec 1]
+1. architecture planning [.]
+2. prototyping
+	- functional UI [..]
+	- backend [...]
+3. clean up visual design [.]
+4. user tests / feedback [wait ..]
+5. app store material [.]
+	- write copy
+	- create screenshots
+	- add privacy policy
+6. submit for review [wait ..]
+```
+
+![gantt chart rendered in the terminal](images/app.png)
 
 ## Installation
 
