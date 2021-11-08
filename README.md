@@ -1,4 +1,5 @@
 # markdown-plan
+
 `markdown-plan` is a project planning syntax based on markdown. This extended syntax includes time estimates and time measurements, helping you improve your planning accuracy. It was designed for software freelancers who want to organize technical work, but I imagine it could be useful elsewhere.
 
 ```
@@ -15,6 +16,8 @@
 
 ![example gantt chart in the terminal](images/example.png)
 (the tick mark scale is in hours)
+
+Before using markdown-plan, this [youtube video](https://www.youtube.com/watch?v=v21jg8wb1eU&t=210s) is "required reading."
 
 ## Installation
 
@@ -116,4 +119,4 @@ Tools for:
 
 ## Acknowledgements
 
-This project was inspired by Thomas Figg's ["Programming is Terrible"](https://www.youtube.com/watch?v=csyL9EC0S0c) talk and Andrew Steel's [gantt](https://github.com/andrew-ls/gantt) repo.
+This project was inspired by Thomas Figg's ["Programming is Terrible"](https://www.youtube.com/watch?v=csyL9EC0S0c) talk and Andrew Steel's [gantt](https://github.com/andrew-ls/gantt) repo, and Dave Farley's ["How to Estimate Software Development Time"](https://www.youtube.com/watch?v=v21jg8wb1eU).
