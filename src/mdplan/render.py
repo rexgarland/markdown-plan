@@ -14,6 +14,7 @@ if settings.DEBUG:
     logging.basicConfig(filename='render.log', filemode='a', level=logging.INFO)
 else:
     logging.basicConfig()
+    logging.level = logging.ERROR
 
 class Scrollable:
     def __init__(self, w, h, text):

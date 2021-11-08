@@ -1,6 +1,6 @@
 WORK_HOURS = [9,10,11,13,14,15,16,17]
 WEEKEND = ['sat','sun']
-DEBUG = True
+DEBUG = False
 
 # UI
 

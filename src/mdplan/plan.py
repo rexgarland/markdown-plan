@@ -12,14 +12,42 @@ class Plan:
     """
     def __init__(self, files):
         self.tasks = []
-        self.manual_dependencies = {}
-        for f in files:
-            f = append_plan_extension(f)
-            f = f.expanduser().resolve()
-            self.add_tasks(f)
+        self.dependencies = {}
+
+        for file in files:
+            path = Path(file).expanduser().resolve()
+            self.add_tasks(path)
+
         self.recurse_completion()
         self.resolve_dependencies()
         self.validate_deadlines()
+    
+    def add_tasks(self, path):
+        text = path.read_text()
+
+        # indent string
+        indent = parse.infer_indent(text)
+
+        # create tasks (leaves of a tree)
+        leaves = []
+        in_code_block = False
+        for line in text.split('\n'):
+            if parse.is_code_block_delimiter(line):
+                in_code_block = not in_code_block
+                continue
+            if in_code_block:
+                continue
+            if parse.is_task(line):
+                level = parse.get_level(line, indent=indent)
+                task, dependencies = parse_line(line, level=level, file=path)
+                self.tasks.append(task)
+                self.dependencies[task] = dependencies
+                leaves += [{'level': level, 'value': task}]
+
+        # combine
+        trees = utils.build_trees(leaves)
+        link_parents_with_children(trees)
+        link_ordered_siblings(trees)
 
     @property
     def root_tasks(self):
@@ -53,36 +81,6 @@ class Plan:
                         recurse(dep)
                 recurse(task)
         return self._deadlines_for_task
-    
-    
-    def add_tasks(self, obj):
-        text = get_text_forgiving(obj)
-        task_kwargs = {}
-        if type(obj) is str:
-            task_kwargs['file_id'] = str(hash(obj))
-        else:
-            path = Path(obj).resolve()
-            assert path.exists()
-            task_kwargs['file'] = path
-        indent = parse.infer_indent(text)
-        # build nodes
-        nodes = []
-        in_code_block = False
-        for line in text.split('\n'):
-            if parse.is_code_block_delimiter(line):
-                in_code_block = not in_code_block
-                continue
-            if in_code_block:
-                continue
-            if parse.is_task(line):
-                level = parse.get_level(line, indent=indent)
-                task, dependencies = parse_line(line, level=level, **task_kwargs)
-                self.tasks.append(task)
-                self.manual_dependencies[task] = dependencies
-                nodes += [{'level': level, 'value': task}]
-        trees = utils.build_trees(nodes)
-        link_parents_with_children(trees)
-        link_ordered_siblings(trees)
 
     def recurse_completion(self):
         roots = self.root_tasks
@@ -103,7 +101,7 @@ class Plan:
     def link_dependencies(self):
         '''Creates links to task objects based on string references'''
         for task in self.tasks:
-            for string in self.manual_dependencies[task]:
+            for string in self.dependencies[task]:
                 filepart, taskpart = split_dependency(string)
                 if not filepart:
                     fref = task.file
@@ -194,15 +192,6 @@ class Plan:
         for task in self.tasks:
             if task.deadline:
                 recurse(task)
-
-def get_text_forgiving(obj):
-    if type(obj) is str:
-        return obj
-    elif utils.is_path(obj):
-        assert obj.exists() and obj.is_file(), f'Could not find object "{obj}"'
-        return obj.read_text()
-    else:
-        raise Exception(f"Object of type {type(obj)} is not valid plan data: {obj}")
 
 def has_cycle(task, visited, on_stack):
     visited[task] = True
