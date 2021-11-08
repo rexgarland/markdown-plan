@@ -4,98 +4,15 @@ from . import utils
 from . import parse
 from .task import Task, parse_line
 
-def get_text_forgiving(obj):
-    if type(obj) is str:
-        return obj
-    elif utils.is_path(obj):
-        assert obj.exists() and obj.is_file(), f'Could not find object "{obj}"'
-        return obj.read_text()
-    else:
-        raise Exception(f"Object of type {type(obj)} is not valid plan data: {obj}")
-
-def has_cycle(task, visited, on_stack):
-    visited[task] = True
-    on_stack[task] = True
-    for dep in task.dependencies:
-        if not visited[dep]:
-            res = has_cycle(dep, visited, on_stack)
-            if res:
-                return res
-        elif on_stack[dep]:
-            return dep
-    on_stack[task] = False
-    return None
-
-def get_cycle(path):
-    first = path[0]
-    last = path[-1]
-    if len(path)>1 and first==last:
-        return path
-    for dep in last.dependencies:
-        cyc = get_cycle(path+[dep])
-        if cyc:
-            return cyc
-    return None
-
-def split_dependency(dep):
-    if ':' in dep:
-        splits = dep.split(':')
-        assert len(splits)==2
-        filepart = splits[0].strip()
-        taskpart = splits[1].strip()
-    elif '/' in dep:
-        filepart = dep.strip()
-        taskpart = ''
-    else:
-        filepart = None
-        taskpart = dep.strip()
-    if not filepart:
-        filepart = None
-    if not taskpart:
-        taskpart = None
-    return filepart, taskpart
-
-def link_parents_with_children(trees):
-    '''Create parent-child relationships in task objects based on tree-structured nodes.'''
-    def recurse(trees, parent=None):
-        if not trees:
-            return
-        for (task, subtrees) in trees:
-            task.parent = parent
-            if parent:
-                parent.children.add(task)
-            recurse(subtrees, parent=task)
-    recurse(trees)
-
-def link_ordered_siblings(trees):
-    '''Create list-ordering dependencies.'''
-    def recurse(trees):
-        if not trees:
-            return
-        last_ordered = None
-        for (task, subtrees) in trees:
-            if task.is_ordered:
-                if last_ordered:
-                    task.dependencies.add(last_ordered)
-                last_ordered = task
-            recurse(subtrees)
-    recurse(trees)
-
-def append_plan_extension(path):
-    path = Path(path)
-    if path.name[-8:]!='.plan.md':
-        path = path.parent / (path.stem + '.plan.md')
-    return path
-
-def recurse_dep_tree(task, func):
-    for dep in task.dependencies:
-        func(dep)
-        recurse_dep_tree(dep, func)
-
 class Plan:
+    """
+    This is the basic class of this project. It structures tasks into a valid dependency graph.
+
+    See |Task| as well.
+    """
     def __init__(self, text=None, file=None, files=[]):
         self.tasks = []
-        self.dependencies = {}
+        self.manual_dependencies = {}
         if text:
             self.add_tasks(text)
         if file:
@@ -165,7 +82,7 @@ class Plan:
                 level = parse.get_level(line, indent=indent)
                 task, dependencies = parse_line(line, level=level, **task_kwargs)
                 self.tasks.append(task)
-                self.dependencies[task] = dependencies
+                self.manual_dependencies[task] = dependencies
                 nodes += [{'level': level, 'value': task}]
         trees = utils.build_trees(nodes)
         link_parents_with_children(trees)
@@ -190,7 +107,7 @@ class Plan:
     def link_dependencies(self):
         '''Creates links to task objects based on string references'''
         for task in self.tasks:
-            for string in self.dependencies[task]:
+            for string in self.manual_dependencies[task]:
                 filepart, taskpart = split_dependency(string)
                 if not filepart:
                     fref = task.file
@@ -281,4 +198,94 @@ class Plan:
         for task in self.tasks:
             if task.deadline:
                 recurse(task)
+
+def get_text_forgiving(obj):
+    if type(obj) is str:
+        return obj
+    elif utils.is_path(obj):
+        assert obj.exists() and obj.is_file(), f'Could not find object "{obj}"'
+        return obj.read_text()
+    else:
+        raise Exception(f"Object of type {type(obj)} is not valid plan data: {obj}")
+
+def has_cycle(task, visited, on_stack):
+    visited[task] = True
+    on_stack[task] = True
+    for dep in task.dependencies:
+        if not visited[dep]:
+            res = has_cycle(dep, visited, on_stack)
+            if res:
+                return res
+        elif on_stack[dep]:
+            return dep
+    on_stack[task] = False
+    return None
+
+def get_cycle(path):
+    first = path[0]
+    last = path[-1]
+    if len(path)>1 and first==last:
+        return path
+    for dep in last.dependencies:
+        cyc = get_cycle(path+[dep])
+        if cyc:
+            return cyc
+    return None
+
+def split_dependency(dep):
+    if ':' in dep:
+        splits = dep.split(':')
+        assert len(splits)==2
+        filepart = splits[0].strip()
+        taskpart = splits[1].strip()
+    elif '/' in dep:
+        filepart = dep.strip()
+        taskpart = ''
+    else:
+        filepart = None
+        taskpart = dep.strip()
+    if not filepart:
+        filepart = None
+    if not taskpart:
+        taskpart = None
+    return filepart, taskpart
+
+def link_parents_with_children(trees):
+    '''Create parent-child relationships in task objects based on tree-structured nodes.'''
+    def recurse(trees, parent=None):
+        if not trees:
+            return
+        for (task, subtrees) in trees:
+            task.parent = parent
+            if parent:
+                parent.children.add(task)
+            recurse(subtrees, parent=task)
+    recurse(trees)
+
+def link_ordered_siblings(trees):
+    '''Create list-ordering dependencies.'''
+    def recurse(trees):
+        if not trees:
+            return
+        last_ordered = None
+        for (task, subtrees) in trees:
+            if task.is_ordered:
+                if last_ordered:
+                    task.dependencies.add(last_ordered)
+                last_ordered = task
+            recurse(subtrees)
+    recurse(trees)
+
+def append_plan_extension(path):
+    path = Path(path)
+    if path.name[-8:]!='.plan.md':
+        path = path.parent / (path.stem + '.plan.md')
+    return path
+
+def recurse_dep_tree(task, func):
+    for dep in task.dependencies:
+        func(dep)
+        recurse_dep_tree(dep, func)
+
+
 

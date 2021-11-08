@@ -26,6 +26,7 @@ Example plan:
 6. submit for review [wait ..]
 ```
 
+... rendered in a terminal:
 ![gantt chart rendered in the terminal](images/app.png)
 
 ## Installation
