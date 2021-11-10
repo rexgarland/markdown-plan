@@ -210,13 +210,6 @@ class Start(GanttEvent):
         super().__init__(obj=obj, **kwargs)
         assert self<=GanttEvent(datetime=NOW) or self<=GanttEvent(date=TODAY), "Start must be specified in the past"
 
-class Finish(GanttEvent):
-    def __init__(self, obj=None, **kwargs):
-        self.is_match = parse.is_finish
-        self.parse = parse.parse_finish
-        super().__init__(obj=obj, **kwargs)
-        assert self<=GanttEvent(datetime=NOW) or self<=GanttEvent(date=TODAY), "Finish must be specified in the past"
-
 def parse_line(line, **kwargs):
     description = parse.get_description(line)
     estimate = parse.get_estimate(line)
