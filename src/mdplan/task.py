@@ -28,8 +28,7 @@ class Task:
                 dependencies=None,
                 parent=None,
                 children=None,
-                file=None,
-                file_id=None):
+                file=None):
         self.description = description
         self.string = string
         self.level = int(level)
@@ -46,7 +45,7 @@ class Task:
         if not dependencies:
             dependencies = set()
         self.dependencies = set(dependencies)
-        self.input_file(file, file_id)
+        self.file = file
         self._is_completed = is_completed
 
     @property
@@ -54,23 +53,6 @@ class Task:
         if self.estimate:
             return self.estimate.type
         return None
-
-    def input_file(self, file, file_id):
-        both_specified = not (file is None) and not (file_id is None)
-        assert not both_specified, "Cannot accept both 'file' and 'file_id' to Task initializer"
-        self.file = None
-        if file:
-            if type(file) is str:
-                # interepret as path
-                self.file = Path(file)
-            else:
-                assert utils.is_path(file), "Cannot parse parameter 'file' to Task initializer"
-                self.file = file
-            self.file = self.file.resolve()
-            assert self.file.exists(), f"Cannot find file '{self.file}' for Task '{self.description}'"
-        if file_id:
-            assert type(file_id) is str, f"Parameter 'file_id' to Task initializer should be type str, not {type(file_id)}"
-            self.file = file_id
 
     @property
     def total_duration(self):
@@ -167,29 +149,20 @@ class Task:
 
 class Estimate:
     def __init__(self, string):
-        assert type(string) is str, f"Estimate object expects input type str, not {type(string)}"
         self.string = string
         if parse.is_wait(string):
             self.type = 'wait'
             string = string.strip()[4:]
         else:
             self.type = 'work'
-        value_string, self.scale = parse.parse_string_and_scale(string)
-        self._value = self.Value(value_string, self.scale)
+        value, self.scale = parse.parse_estimate(string)
+        self._value = self.Value(value, self.scale)
 
     class Value:
-        def __init__(self, string, scale):
-            if parse.is_range(string):
-                splits = [parse.only_numerics(s) for s in string.split('-')]
-                f1 = float(splits[0])
-                f2 = float(splits[1])
-                self.max = GanttDuration(value=max(f1, f2), scale=scale)
-                self.min = GanttDuration(value=min(f1, f2), scale=scale)
-                self.nominal = GanttDuration(value=(self.min.value+self.max.value)/2, scale=scale)
-            else:
-                self.nominal = GanttDuration(value=float(string), scale=scale)
-                self.min = self.nominal
-                self.max = self.nominal
+        def __init__(self, value, scale):
+            self.nominal = GanttDuration(value=value, scale=scale)
+            self.min = self.nominal
+            self.max = self.nominal
 
     @property
     def min(self):

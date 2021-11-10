@@ -43,6 +43,16 @@ def parse_scale(scale):
         return 'months'
     return 'hours'
 
+def parse_estimate(string):
+    count = string.count('.')
+    assert count > 0 and count < 4, "Unexpected estimate string"
+    if count == 1:
+        return 4, 'hours'
+    elif count == 2:
+        return 2, 'days'
+    else:
+        return 1, 'weeks'
+
 def parse_string_and_scale(string):
     if string.strip()=='0':
         return '0', 'hours'
@@ -279,11 +289,16 @@ def is_completed(line):
     return False
 
 def get_estimate(line):
-    groups = utils.find_groups(line, '{}')
+    groups = utils.find_groups(line, '[]')
     if not groups:
         return None
-    assert len(groups)==1
-    return groups[0].strip()
+    # filter down to just ones with dots e.g. [..]
+    groups = [group for group in groups if group.strip().count('.') == len(group.strip()) or group.find('wait')==0]
+    assert len(groups)<=1, f"Expected only one estimate in lin {line}"
+    if groups:
+        return groups[0].strip()
+    else:
+        return None
 
 def get_level(line, indent='\t'):
     first = line.strip()[0]
