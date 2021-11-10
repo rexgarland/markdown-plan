@@ -249,23 +249,23 @@ class GanttDuration(GanttScale):
 
     def __init__(self, value=0, scale='hours', **kwargs):
         super().__init__(**kwargs)
-        self._scale = scale
+        self.scale = scale
         self.value = value
 
     @property
     def hours(self):
-        if self._scale=='months':
+        if self.scale=='months':
             factor = self._hpd*self._dpw*4
-        elif self._scale=='weeks':
+        elif self.scale=='weeks':
             factor = self._hpd*self._dpw
-        elif self._scale=='days':
+        elif self.scale=='days':
             factor = self._hpd
-        elif self._scale=='hours':
+        elif self.scale=='hours':
             factor = 1
-        elif self._scale=='minutes':
+        elif self.scale=='minutes':
             factor = 1.0/60
         else:
-            raise Exception(f'Scale for gantt interval not recognized: {self._scale}')
+            raise Exception(f'Scale for gantt interval not recognized: {self.scale}')
         return self.value*factor
 
     def __gt__(self, other):

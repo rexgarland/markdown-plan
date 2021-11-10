@@ -119,7 +119,17 @@ def get_deadline(string):
     return None
 
 def is_measurement(bracket_string):
-    return bracket_string.strip()[0].isnumeric()
+    acceptables = 'had, '
+    return all([c in acceptables for c in bracket_string])
+
+def parse_measurement(c):
+    assert c in 'had'
+    if c == 'h':
+        return 1, 'hours'
+    elif c == 'a':
+        return 4, 'hours'
+    else:
+        return 1, 'days'
 
 def is_interval(string):
     return '-' in string
@@ -272,15 +282,13 @@ def parse_finish(string):
     string = string[string.index(kw)+len(kw):].strip()
     return parse_time(string, method='before')
 
-def get_measurements(string):
+def get_measurement(string):
     brackets = utils.find_groups(string, '[]')
-    measurements = []
+    measurement = ''
     for bracket in brackets:
-        for sub in bracket.split(','):
-            sub = sub.strip()
-            if is_measurement(sub):
-                measurements.append(sub)
-    return measurements
+        if is_measurement(bracket):
+            measurement += bracket.replace(' ','').replace(',','')
+    return measurement
 
 def is_completed(line):
     for bracket in utils.find_groups(line, '[]'):

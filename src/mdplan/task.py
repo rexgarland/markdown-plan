@@ -19,7 +19,7 @@ class Task:
                 string=None,
                 level=None,
                 estimate=None,
-                measurements=[],
+                measurement=None,
                 start=None,
                 finish=None,
                 deadline=None,
@@ -32,7 +32,7 @@ class Task:
         self.description = description
         self.string = string
         self.level = int(level)
-        self.measurement = sum([Measurement(m) for m in measurements]) if measurements else None
+        self.measurement = Measurement(measurement) if measurement else None
         self.estimate = Estimate(estimate) if estimate else None
         self.deadline = deadline
         self.start = start
@@ -178,14 +178,11 @@ class Estimate:
 
 class Measurement(GanttDuration):
     def __init__(self, string):
-        assert parse.is_measurement(string)
-        if parse.is_interval(string):
-            value = parse.parse_time_interval(string)
-            scale = 'hours'
-        else:
-            string, scale = parse.parse_string_and_scale(string)
-            value = float(string)
-        super().__init__(value=value, scale=scale)
+        total = GanttDuration()
+        for c in string:
+            value, scale = parse.parse_measurement(c)
+            total += GanttDuration(value=value, scale=scale)
+        super().__init__(value=total.value, scale=total.scale)
 
 def match_parse_or_default(matcher, parser, default):
     def func(obj):
@@ -223,14 +220,14 @@ class Finish(GanttEvent):
 def parse_line(line, **kwargs):
     description = parse.get_description(line)
     estimate = parse.get_estimate(line)
-    measurements = parse.get_measurements(line)
+    measurement = parse.get_measurement(line)
     deadline = parse.get_deadline(line)
     start = parse.get_start(line)
     finish = parse.get_finish(line)
     is_ordered = parse.is_ordered(line)
     dependencies = parse.get_dependencies(line)
     is_completed = parse.is_completed(line)
-    t = Task(description, string=line, estimate=estimate, measurements=measurements, deadline=deadline, start=start, finish=finish, is_ordered=is_ordered, is_completed=is_completed, **kwargs)
+    t = Task(description, string=line, estimate=estimate, measurement=measurement, deadline=deadline, start=start, finish=finish, is_ordered=is_ordered, is_completed=is_completed, **kwargs)
     return t, dependencies
 
 
