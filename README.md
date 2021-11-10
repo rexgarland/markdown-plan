@@ -22,7 +22,7 @@ Example plan:
 # Build iOS app [by Dec 1]
 1. architecture planning [.]
 2. prototyping
-	- functional UI [..]
+	- functional UI [..] [a]
 	- backend [...]
 3. clean up visual design [.]
 4. user tests / feedback [wait ..]
