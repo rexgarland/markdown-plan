@@ -1,12 +1,19 @@
 # markdown-plan
 
-`markdown-plan` is a project planning syntax based on markdown. This extended syntax includes time estimates and time measurements, helping you improve your planning accuracy. It was designed for software freelancers who want to organize technical work, but I imagine it could be useful elsewhere.
+`markdown-plan` is a project planning syntax based on markdown. This extended syntax includes time estimates and time measurements, helping you improve your planning accuracy. It was designed for software freelancers who want to organize technical work on the scale of a few months or less, but I imagine it could be useful elsewhere.
 
 Time estimates are given in three "t-shirt sizes" (small, medium and large) in order to (1) put a limit on expected precision and (2) encourage breaking up larger tasks into smaller:
 ```
 . = 4 hours
 .. = 2 days
 ... = 1 week
+```
+
+Time measurements are simplified with the following syntax:
+```
+h = 1 hour
+a = 4 hours
+d = 1 day
 ```
 
 Example plan:
@@ -29,103 +36,39 @@ Example plan:
 ... rendered in a terminal:
 ![gantt chart rendered in the terminal](images/example.png)
 
-## Installation
+## Plans
 
+A markdown plan is a markdown file, where each header or list item is parsed as a "task." It must have one title line at the start, and you cannot jump up more than one indentation level or header level from one line to the next. This is because indentation and header level are used to denote parent-child relationships between tasks and create a directed acyclic graph (DAG), where the title task represents the only sink in the DAG.
+
+## Tasks
+
+Any line formatted as a list item or header is parsed as a task according to the following syntax.
 ```
-pip install markdown-plan
-```
-
-## Getting started
-
-Download one of the example files in `examples/` and run `mdplan [file]` to make sure it works on your machine.
-
-## Reference
-
-### Plans
-
-In `markdown-plan`, each "plan" is a text file, and each "task" is a markdown list item. A valid "markdown plan" must have two things:
-1. a title line (starting with a single `#`)
-2. a list of tasks
-
-Lists can be nested ...
-```
-- new title
-    1. finish paperwork
-    2. mail paperwork
-```
-... and you can mix ordered and unordered lists together.
-```
-1. first this
-2. then this
-- this can happen any time
+- description [estimate] [measurements] [by <deadline>] @(dependencies)
 ```
 
-The title line is itself a task, so you can use any syntax as with a regular task.
-
-### Tasks
-
-Any line formatted as a list item is parsed as a task according to the following syntax.
-```
-* <description> {<estimate>} [<measurements>] [by <deadline>] [done|cancelled] @(<dependencies>)
-```
+There are two types of tasks:
+- work
+- wait (ones where the estimate has `wait` in it)
 
 Examples:
 ```
-1. complete paperwork [30 min] [done]
+1. complete paperwork [.] [hh]
 
-- start online app {1-2 hrs} [12-1:30pm, 2-3pm] [done]
+- start online app [wait ..] [started 12-10]
 
-* setup server {2-3 hrs} [2.5 hrs] [by 12-10] @(server provider)
+## setup server [by 12-10] @(domain)
 ```
 
-* An `{estimate}` can be the following:
-	* duration (e.g. `{4 hours}`)
-	* duration range (e.g. `{3-4 days}`)
-* A `[measurement]` can be the following:
-	* duration (e.g. `[1 hr]`)
-	* time interval (e.g. `[11-12pm]`)
-	* start or finish time (see waiting tasks below)
-	* (Multiple measurements can be separated by commas within brackets (e.g. `[12-1, 3-4pm]`) or as separate brackets (e.g. `[12-1] [3-4pm]`))
-* A deadline is denoted with the word `by` in brackets and can be the following:
-	* date (e.g. `[by 12-10]`)
-	* time (for items that should finish today) (e.g. `[by 1:30pm]` or `[by 13:30]`)
-	* datetime (for greater precision) (e.g. `[by 12-10 at 1:30pm]`)
-* A `[status]` can be
-	* "done" for task completion
-	* "cancelled" for ignoring a task
-
-#### Waiting tasks
-
-Tasks for which the time estimate is prefaced by `wait` are considering "waiting tasks." These are things like "wait for the mail to arrive," or tasks that take time but can happen concurrently to you own work. For example:
-
-```
-2. mail paperwork {wait 1-2 weeks} [started 12-10] [by 1-1]
-```
-
-The following measurements are used for waiting tasks:
-* a start time (e.g. `[started 12-10]`)
-* a finish time (e.g. `[finished 12-15]`)
-
-You can also write a time duration instead of an ending time, if you prefer.
-
-### Manual dependencies
-
-For dependencies, you can write any unique substring of the referenced task. Tasks from another file can be referenced using a file prefix and a colon. For example:
-
-`- start online app @(other: research)`
-
-In this case, the file `./other.plan.md` (relative to the current file) is searched for a task containing the substring "research".
-
-## More examples
-
-`cd` into the `example` directory and try running `mdplan gantt` on any of the examples. 
-
-## Future work
-
-Tools for:
-* viewing deadlines on the terminal gantt chart
-* automatically scheduling tasks where order is ambiguous
-* `--csv`: exporting everything as a csv
+Details:
+- An estimate is either:
+	- an amount of work you have to do, e.g. `..`
+	- a waiting period, e.g. `wait ..`
+- A measurement is either:
+	- a string of measurement characters (`h`, `a`, and `d`) and spaces or commas (which are just ignored)
+	- a start date for a wait task, e.g. `started 12-10`
+- A deadline is a month and day, e.g. `3-26`, prefaced by the `by` keyword
+- Dependencies written in the `@()` syntax are explicit dependencies of the DAG that you can enter manually. They can be any unique substrings of another task's description, separated by commas. Note: be careful not to create a dependency cycle (the parser should warn you anyway if you do).
 
 ## Acknowledgements
 
