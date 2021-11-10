@@ -27,7 +27,7 @@ Example plan:
 ```
 
 ... rendered in a terminal:
-![gantt chart rendered in the terminal](images/app.png)
+![gantt chart rendered in the terminal](images/example.png)
 
 ## Installation
 
