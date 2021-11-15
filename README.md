@@ -36,7 +36,8 @@ Example plan:
 ... rendered in a terminal:
 ![gantt chart rendered in the terminal](images/example.png)
 
-Check out the corresponding [Sublime Text package](https://github.com/rexgarland/MarkdownPlan).
+Check out the corresponding [Sublime Text package](https://github.com/rexgarland/MarkdownPlan) for syntax highlighting and live summaries:
+![status-bar](images/status-bar.png)
 
 ## Plans
 
