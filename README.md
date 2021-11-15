@@ -9,7 +9,7 @@ Time estimates are given in three "t-shirt sizes" (small, medium and large) in o
 ... = 1 week
 ```
 
-Time measurements are simplified with the following syntax:
+Time measurements are restricted to strings of the following characters:
 ```
 h = 1 hour
 a = 4 hours
@@ -35,6 +35,8 @@ Example plan:
 
 ... rendered in a terminal:
 ![gantt chart rendered in the terminal](images/example.png)
+
+Check out the corresponding [Sublime Text package](https://github.com/rexgarland/MarkdownPlan).
 
 ## Plans
 
