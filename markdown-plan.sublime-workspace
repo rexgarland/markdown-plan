@@ -1,0 +1,379 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Install Package",
+					""
+				],
+				[
+					"Packages/PackageDev/Package/Convert to ....sublime-build",
+					""
+				],
+				[
+					"Packages/PackageDev/Package/Convert to ....sublime-build",
+					"JSON"
+				],
+				[
+					"Packages/PackageDev/Package/Convert to ....sublime-build",
+					"Property List"
+				],
+				[
+					"Packages/PackageDev/Package/Convert to ....sublime-build",
+					"YAML (Block Style)"
+				],
+				[
+					"Packages/PackageDev/Package/Convert to ....sublime-build",
+					"YAML (Default Style)"
+				]
+			],
+			[
+				"Install Package",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"git co",
+				"Git: Commit"
+			],
+			[
+				"add",
+				"Git: Add All"
+			],
+			[
+				"git",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add All"
+			],
+			[
+				"brow",
+				"Preferences: Browse Packages"
+			],
+			[
+				"view pa",
+				"View Package File"
+			],
+			[
+				"package in",
+				"Package Control: Install Package"
+			],
+			[
+				"view",
+				"View Package File"
+			],
+			[
+				"pack",
+				"Package Control: List Packages"
+			],
+			[
+				"package",
+				"Package Control: Remove Repository"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"view pack",
+				"View Package File"
+			],
+			[
+				"mypy",
+				"MypyReveal: Type"
+			],
+			[
+				"myp",
+				"MypyReveal: Type"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"commit",
+				"Set Syntax: Git Commit"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 112.0,
+		"history":
+		[
+			"view.substr(sublime.Region(point,point+2))",
+			"view.substr(sublime.Region(point,point+2))=='> '",
+			"edit",
+			"view.substr(sublime.Region(point,point+2))=='> '",
+			"view.substr(sublime.Region(point,point+2))",
+			"Region",
+			"point",
+			"point = view.line(view.sel()[0]).begin()",
+			"sublime.log_commands(False)",
+			"sublime.log_commands(True)",
+			"sublime.log_commands(False)",
+			"view.scope_name(0)",
+			"view.scope_name(100)",
+			"view.scope_name(0)",
+			"view.run_command('mdplan_comment')",
+			"sublime.log_commands(True)",
+			"view.run_command('mdplan_comment')",
+			"view.run_command",
+			"sublime.run_command('mdplan_comment')",
+			"sublime.run_command",
+			"sublime.run_command('mdplan-comment')"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/rex/src/markdown-plan"
+	],
+	"file_history":
+	[
+		"/Users/rex/src/MarkdownPlan/MarkdownPlan.py",
+		"/Users/rex/src/MarkdownPlan/Default (OSX).sublime-keymap",
+		"/Users/rex/src/MarkdownPlan/Default (Windows).sublime-keymap",
+		"/Users/rex/src/MarkdownPlan/MarkdownPlan.sublime-project",
+		"/Users/rex/src/MarkdownPlan/.gitignore",
+		"/Users/rex/src/MarkdownPlan/load.sublime-build",
+		"/Users/rex/Documents/Projects/software/city-of-fountains/marketing/budget.md",
+		"/Users/rex/Documents/Projects/software/city-of-fountains/social-media.md",
+		"/Users/rex/src/planning/README.md",
+		"/Users/rex/Library/Application Support/Sublime Text/Packages/MarkdownPlan/Default (OSX).sublime-keymap",
+		"/Users/rex/Library/Application Support/Sublime Text/Packages/Default/show_scope_name.py",
+		"/Users/rex/Library/Application Support/Sublime Text/Packages/Default/comment.py",
+		"/Users/rex/src/MarkdownPlan/load.sh",
+		"/Users/rex/src/planning/freelancing.plan.md",
+		"/Users/rex/Library/Application Support/Sublime Text/Packages/MarkdownPlan/MarkdownPlan.py",
+		"/Users/rex/Library/Application Support/Sublime Text/Packages/markdown-plan/.gitignore",
+		"/Users/rex/Library/Application Support/Sublime Text/Packages/Default/arithmetic.py",
+		"/Users/rex/src/markdown-plan/src/mdplan/__main__.py",
+		"/Users/rex/Documents/Projects/markdown-plan-private/setup.cfg",
+		"/Users/rex/Documents/Projects/markdown-plan-private/pyproject.toml",
+		"/Users/rex/src/markdown-plan/.gitignore",
+		"/Users/rex/src/markdown-plan/src/mdplan/settings.py",
+		"/Users/rex/src/markdown-plan/src/mdplan/render.py",
+		"/Users/rex/src/markdown-plan/README.md",
+		"/Users/rex/src/markdown-plan/examples/app.plan.md",
+		"/Users/rex/Documents/Finance/expenses/monthly-expenses-2021.md",
+		"/Users/rex/Documents/Finance/expenses/one-time-expenses-2021-10.md",
+		"/Users/rex/src/planning/city-of-fountains.plan.md",
+		"/Users/rex/Documents/Projects/city-of-fountains/assets/raw/database.json",
+		"/Users/rex/Desktop/recipes.txt",
+		"/Users/rex/Documents/Projects/city-of-fountains/neighborhoods.md",
+		"/Users/rex/Documents/Projects/city-of-fountains/assets/prepare-database.py",
+		"/Users/rex/Documents/Projects/city-of-fountains/assets/watermark-image.py",
+		"/Users/rex/Documents/Projects/city-of-fountains/assets/prepare-bucket.sh",
+		"/Users/rex/Documents/Projects/city-of-fountains/assets/prepare-images.sh",
+		"/Users/rex/Documents/Projects/city-of-fountains/assets/processed/t4J9D1jzkjOigeWTwe2ryA==/database.json",
+		"/Users/rex/Documents/Projects/city-of-fountains/assets/resize-image.py",
+		"/Users/rex/Documents/Projects/city-of-fountains/watermark/watermark-image.py",
+		"/Users/rex/Documents/Projects/city-of-fountains/watermark/Pipfile",
+		"/Users/rex/Documents/Projects/city-of-fountains/history.md",
+		"/Users/rex/Documents/Projects/city-of-fountains/research.md",
+		"/Users/rex/src/Fountains/Fountains/Resources/landmarks.json",
+		"/Users/rex/Documents/Projects/city-of-fountains/POI-categories.md",
+		"/Users/rex/Documents/Projects/city-of-fountains/landmarks.json",
+		"/Users/rex/Documents/Learning/Art&Design/stylescapes/stylescape-guide.md",
+		"/Users/rex/Documents/Projects/city-of-fountains/competitors.md",
+		"/Users/rex/Documents/Projects/city-of-fountains/identity.md",
+		"/Users/rex/Documents/Projects/city-of-fountains/user-profiles.md",
+		"/Users/rex/Documents/Projects/city-of-fountains/swot.md",
+		"/Users/rex/Desktop/options.txt",
+		"/Users/rex/Documents/Projects/city-of-fountains/reseach.md",
+		"/Users/rex/Documents/Learning/Art&Design/writing-copy.md",
+		"/Users/rex/Documents/shsmo-subjects.txt",
+		"/Users/rex/Documents/Learning/Art&Design/customer-profiles/customer_profiles.md",
+		"/Users/rex/Documents/Projects/city-of-fountains/copy.md",
+		"/Users/rex/Documents/Portfolio/identity.md",
+		"/Users/rex/Documents/Finance/taxes/sole-proprietorship.md",
+		"/Users/rex/Documents/Portfolio/bio.txt",
+		"/Users/rex/Documents/Projects/city-of-fountains/first-visit.txt",
+		"/Users/rex/Downloads/schema",
+		"/Users/rex/Documents/USCIS/green-card/order.md",
+		"/Users/rex/Documents/USCIS/green-card/USCIS-document-checklists.md",
+		"/Users/rex/Documents/Projects/vreader/customer-profiles.md",
+		"/Users/rex/Documents/Finance/income/uscis-obligation.md",
+		"/Users/rex/Documents/Finance/income/goals.md",
+		"/Users/rex/src/planning/memoread.plan.md",
+		"/Users/rex/Documents/Projects/vreader/language-learning-research.md",
+		"/Users/rex/Documents/USCIS/green-card/notes-phuong-2021-09-17.md",
+		"/Users/rex/Documents/USCIS/green-card/to-print.md",
+		"/Users/rex/src/planning/.git/COMMIT_EDITMSG",
+		"/Users/rex/src/planning/software/vreader.plan.md",
+		"/Users/rex/Documents/USCIS/green-card/preparation.md"
+	],
+	"find":
+	{
+		"height": 24.0
+	},
+	"find_in_files":
+	{
+		"height": 98.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 155.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 108.0
+	},
+	"pinned_build_system": "",
+	"project": "markdown-plan.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/src/planning/planning.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 234.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

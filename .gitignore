@@ -145,3 +145,5 @@ dmypy.json
 
 # User added
 .DS_Store
+
+*.sublime-project

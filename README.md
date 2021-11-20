@@ -16,9 +16,9 @@ a = 4 hours
 d = 1 day
 ```
 
-Example plan:
+Example: app.plan.md
 
-```
+```mdplan
 # Build iOS app [by Dec 1]
 1. architecture planning [.] [hh]
 2. prototyping
@@ -39,11 +39,15 @@ Example plan:
 Check out the corresponding [Sublime Text package](https://github.com/rexgarland/MarkdownPlan) for syntax highlighting and live summaries:
 ![status-bar](images/status-bar.png)
 
-## Plans
+## Reference
 
-A markdown plan is a markdown file, where each header or list item is parsed as a "task." It must have one title line at the start, and you cannot jump up more than one indentation level or header level from one line to the next. This is because indentation and header level are used to denote parent-child relationships between tasks and create a directed acyclic graph (DAG), where the title task represents the only sink in the DAG.
+### Plans
 
-## Tasks
+A markdown plan is a markdown file with the extension `plan.md`. Each header or list item is parsed as a "task."
+
+The file must have one title line at the start, and you cannot jump up more than one indentation level or header level from one line to the next. This is because indentation and header level are used to denote parent-child relationships between tasks and create a directed acyclic graph (DAG), where the title task represents the only sink in the DAG.
+
+### Tasks
 
 Any line formatted as a list item or header is parsed as a task according to the following syntax.
 ```
@@ -71,7 +75,7 @@ Details:
 	- a string of measurement characters (`h`, `a`, and `d`) and spaces or commas (which are just ignored)
 	- a start date for a wait task, e.g. `started 12-10`
 - A deadline is a month and day, e.g. `3-26`, prefaced by the `by` keyword
-- Dependencies written in the `@()` syntax are explicit dependencies of the DAG that you can enter manually. They can be any unique substrings of another task's description, separated by commas. Note: be careful not to create a dependency cycle (the parser should warn you anyway if you do).
+- Dependencies written in the `@()` syntax are explicit dependencies of the DAG that you can enter manually. They can be any unique substrings of another task's description, separated by commas for multiple dependencies. Note: be careful not to create a dependency loop (the parser should warn you anyway if you do).
 
 ## Acknowledgements
 
