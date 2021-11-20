@@ -84,6 +84,10 @@ Details:
 - A deadline is a month and day, e.g. `3-26`, prefaced by the `by` keyword
 - Dependencies written in the `@()` syntax are explicit dependencies of the DAG that you can enter manually. They can be any unique substrings of another task's description, separated by commas for multiple dependencies. Note: be careful not to create a dependency loop (the parser should warn you anyway if you do).
 
+## Contributing
+
+**Issues and PRs welcome!**
+
 ## Acknowledgements
 
 This project was inspired by Thomas Figg's "[Programming is Terrible](https://www.youtube.com/watch?v=csyL9EC0S0c)," Andrew Steel's [gantt](https://github.com/andrew-ls/gantt) repo, and Dave Farley's "[How to Estimate Software Development Time](https://www.youtube.com/watch?v=v21jg8wb1eU)."
