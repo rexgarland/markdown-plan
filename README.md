@@ -3,14 +3,14 @@
 `markdown-plan` is a project planning syntax based on markdown. This extended syntax includes time estimates and time measurements, helping you improve your planning accuracy. It was designed for software freelancers who want to organize technical work on the scale of a few months or less, but I imagine it could be useful elsewhere.
 
 Time estimates are given in three "t-shirt sizes" (small, medium and large) in order to (1) put a limit on expected precision and (2) encourage breaking up larger tasks into smaller:
-```
+```txt
 . = 4 hours
 .. = 2 days
 ... = 1 week
 ```
 
 Time measurements are restricted to strings of the following characters:
-```
+```txt
 h = 1 hour
 a = 4 hours
 d = 1 day
@@ -18,8 +18,8 @@ d = 1 day
 
 Example: app.plan.md
 
-```mdplan
-# Build iOS app [by Dec 1]
+```md
+# Build iOS app [by 12-1]
 1. architecture planning [.] [hh]
 2. prototyping
 	- functional UI [..]
@@ -33,11 +33,13 @@ Example: app.plan.md
 6. submit for review [wait ..]
 ```
 
-... rendered in a terminal:
-![gantt chart rendered in the terminal](images/example.png)
+[Sublime Text package](https://github.com/rexgarland/MarkdownPlan) for syntax highlighting and live summaries:
 
-Check out the corresponding [Sublime Text package](https://github.com/rexgarland/MarkdownPlan) for syntax highlighting and live summaries:
 ![status-bar](images/status-bar.png)
+
+Rendering in a terminal (**WIP**):
+
+![gantt chart rendered in the terminal](images/example.png)
 
 ## Reference
 
@@ -45,7 +47,12 @@ Check out the corresponding [Sublime Text package](https://github.com/rexgarland
 
 A markdown plan is a markdown file with the extension `plan.md`. Each header or list item is parsed as a "task."
 
-The file must have one title line at the start, and you cannot jump up more than one indentation level or header level from one line to the next. This is because indentation and header level are used to denote parent-child relationships between tasks and create a directed acyclic graph (DAG), where the title task represents the only sink in the DAG.
+Restrictions:
+* The file must have exactly one title line (`# <title>`) at the start
+* You cannot jump up more than one indentation level at a time in a nested list.
+* You cannot jump up more than one header level from one header to the next.
+
+The indentation restrictions are required in order to clearly denote parent-child relationships between tasks and create a directed acyclic graph (DAG), where the title task represents the only sink in the DAG.
 
 ### Tasks
 
@@ -79,4 +86,4 @@ Details:
 
 ## Acknowledgements
 
-This project was inspired by Thomas Figg's ["Programming is Terrible"](https://www.youtube.com/watch?v=csyL9EC0S0c) talk and Andrew Steel's [gantt](https://github.com/andrew-ls/gantt) repo, and Dave Farley's ["How to Estimate Software Development Time"](https://www.youtube.com/watch?v=v21jg8wb1eU).
+This project was inspired by Thomas Figg's "[Programming is Terrible](https://www.youtube.com/watch?v=csyL9EC0S0c)," Andrew Steel's [gantt](https://github.com/andrew-ls/gantt) repo, and Dave Farley's "[How to Estimate Software Development Time](https://www.youtube.com/watch?v=v21jg8wb1eU)."
