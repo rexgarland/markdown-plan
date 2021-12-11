@@ -1,20 +1,19 @@
 import argparse
 from pathlib import Path
 
-from .render import render
+from .dag import convert_to_dag
 
 def is_plan(f):
     return f.endswith('.plan.md') and Path(f).is_file()
 
 def main():
-    parser = argparse.ArgumentParser('View files in markdown-plan.')
-    parser.add_argument('files', type=str, nargs='+')
+    parser = argparse.ArgumentParser('Convert a markdown plan to a JSON DAG.')
+    parser.add_argument('file', type=str)
+    parser.add_argument('--output', default=None)
     args = parser.parse_args()
 
-    renderable_files = filter(is_plan, args.files)
-    assert renderable_files, "No markdown plans found in files specified."
-
-    render(files=renderable_files)
+    outfile = convert_to_dag(args.file, jsonfile=args.output)
+    print(outfile)
 
 if __name__=='__main__':
     main()

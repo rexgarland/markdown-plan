@@ -1,0 +1,108 @@
+[
+	{
+		"id": 0,
+		"description": "Build iOS app",
+		"dependencies": [
+			11
+		]
+	},
+	{
+		"id": 1,
+		"description": "architecture planning",
+		"type": "work",
+		"duration": 0.5,
+		"remaining": 0.25,
+		"dependencies": []
+	},
+	{
+		"id": 2,
+		"description": "prototyping",
+		"dependencies": [
+			4,
+			3
+		]
+	},
+	{
+		"id": 3,
+		"description": "functional UI",
+		"type": "work",
+		"duration": 2.0,
+		"remaining": 2.0,
+		"dependencies": [
+			1
+		]
+	},
+	{
+		"id": 4,
+		"description": "backend",
+		"type": "work",
+		"duration": 5.0,
+		"remaining": 5.0,
+		"dependencies": [
+			1
+		]
+	},
+	{
+		"id": 5,
+		"description": "clean up visual design",
+		"type": "work",
+		"duration": 0.5,
+		"remaining": 0.5,
+		"dependencies": [
+			2
+		]
+	},
+	{
+		"id": 6,
+		"description": "user tests / feedback",
+		"type": "wait",
+		"duration": 2.0,
+		"remaining": 2.0,
+		"dependencies": [
+			5
+		]
+	},
+	{
+		"id": 7,
+		"description": "app store material",
+		"type": "work",
+		"duration": 0.5,
+		"remaining": 0.5,
+		"dependencies": [
+			10,
+			8,
+			9
+		]
+	},
+	{
+		"id": 8,
+		"description": "write copy",
+		"dependencies": [
+			6
+		]
+	},
+	{
+		"id": 9,
+		"description": "create screenshots",
+		"dependencies": [
+			6
+		]
+	},
+	{
+		"id": 10,
+		"description": "add privacy policy",
+		"dependencies": [
+			6
+		]
+	},
+	{
+		"id": 11,
+		"description": "submit for review",
+		"type": "wait",
+		"duration": 2.0,
+		"remaining": 2.0,
+		"dependencies": [
+			7
+		]
+	}
+]

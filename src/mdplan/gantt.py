@@ -268,6 +268,11 @@ class GanttDuration(GanttScale):
             raise Exception(f'Scale for gantt interval not recognized: {self.scale}')
         return self.value*factor
 
+    @property
+    def days(self):
+        return float(self.hours) / self._hpd
+    
+
     def __gt__(self, other):
         return self.hours>other.hours
 
