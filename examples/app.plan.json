@@ -2,6 +2,7 @@
 	{
 		"id": 0,
 		"description": "Build iOS app",
+		"deadline": "2021-12-10",
 		"dependencies": [
 			11
 		]
@@ -69,9 +70,9 @@
 		"duration": 0.5,
 		"remaining": 0.5,
 		"dependencies": [
-			10,
 			8,
-			9
+			9,
+			10
 		]
 	},
 	{
