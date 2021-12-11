@@ -209,6 +209,6 @@ def main(scr, plan):
             scroll(state, key)
         draw(scr, state)
 
-def render(files):
-    plan = Plan(files)
+def render(file):
+    plan = Plan(file)
     curses.wrapper(main, plan)

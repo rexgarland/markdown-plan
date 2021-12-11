@@ -314,11 +314,11 @@ class Scheduler(GeneticAlg):
 
 if __name__=='__main__':
     import argparse
-    parser = argparse.ArgumentParser('schedule tasks')
-    parser.add_argument('files', type=str, nargs='+')
-    args = parser.parse_args()
     from mdplan.plan import Plan
-    plan = Plan(files=args.files)
+    parser = argparse.ArgumentParser('schedule tasks')
+    parser.add_argument('file', type=str)
+    args = parser.parse_args()
+    plan = Plan(args.file)
     s = Scheduler(plan, realtime_reports=True)
     s.run()
     s.summarize()

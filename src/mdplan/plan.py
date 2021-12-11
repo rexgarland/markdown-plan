@@ -10,13 +10,12 @@ class Plan:
 
     See |Task| as well.
     """
-    def __init__(self, files):
+    def __init__(self, file):
         self.tasks = []
         self.dependencies = {}
 
-        for file in files:
-            path = Path(file).expanduser().resolve()
-            self.add_tasks(path)
+        path = Path(file).expanduser().resolve()
+        self.add_tasks(path)
 
         self.recurse_completion()
         self.resolve_dependencies()

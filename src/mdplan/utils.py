@@ -1,5 +1,6 @@
 from functools import reduce
 import math
+from pathlib import Path
 
 def build_tree(nodes):
     """
@@ -66,3 +67,7 @@ def is_date(obj):
 
 def is_time(obj):
     return hasattr(obj, 'hour') and not (hasattr(obj, 'day'))
+
+def json_version_of(path):
+    path = Path(path)
+    return path.parent / (path.stem + '.json')
