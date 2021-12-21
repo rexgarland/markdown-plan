@@ -47,7 +47,7 @@ def convert_to_dag(planfile, jsonfile=None):
 			new['remaining'] = task.remaining_duration.days
 		if task.deadline:
 			new['deadline'] = task.deadline.date.isoformat()
-		new['dependencies'] = [t.id for t in task.dependencies]
+		new['parentIds'] = [t.id for t in task.dependencies]
 		json_tasks.append(new)
 
 	# write out

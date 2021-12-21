@@ -18,7 +18,14 @@ class Plan:
         self.add_tasks(path)
 
         self.recurse_completion()
-        self.resolve_dependencies()
+
+        self.link_dependencies()
+        self.validate_no_multiple_timed_lineages()
+        self.lift_dependencies()
+        self.trickle_dependencies()
+        self.validate_no_circular_dependencies()
+        self.trim_dependencies()
+
         self.validate_deadlines()
     
     def add_tasks(self, path):
@@ -91,12 +98,6 @@ class Plan:
         for root in roots:
             recurse(root)
 
-    def resolve_dependencies(self):
-        self.link_dependencies()
-        self.lift_dependencies()
-        self.trickle_dependencies()
-        self.trim_dependencies()
-
     def link_dependencies(self):
         '''Creates links to task objects based on string references'''
         for task in self.tasks:
@@ -116,8 +117,7 @@ class Plan:
                 task.dependencies.add(possible[0])
 
     def lift_dependencies(self):
-        """Lifts unrelated dependencies to the nearest timed ancestor, if one exists"""
-        self.validate_no_multiple_timed_lineages()
+        """Lifts unrelated (not in bloodline) dependencies to the nearest timed ancestor, if one exists"""
         for task in self.tasks:
             for dep in task.dependencies:
                 if (dep in task.parent.children) or (task in dep.ancestors):
@@ -131,8 +131,9 @@ class Plan:
 
     def trickle_dependencies(self):
         """
-        1) Give parent dependencies to its children, recursively
+        1) Give each parent's dependencies to its children
         2) Then, parents should depend on children to finish.
+        3) recurse
         """
         parents = set(self.root_tasks)
         while parents:
@@ -144,13 +145,12 @@ class Plan:
             # (2)
             for child in parent.children:
                 parent.dependencies.add(child)
-            # recurse
+            # (3)
             for child in parent.children:
                 parents.add(child)
 
     def trim_dependencies(self):
         """Remove chronologically-redundant dependencies"""
-        self.validate_no_circular_dependencies()
         for task in self.tasks:
             to_visit = set(task.dependencies)
             while to_visit:
@@ -165,8 +165,8 @@ class Plan:
     def validate_no_circular_dependencies(self):
         visited = {task: False for task in self.tasks}
         for task in self.tasks:
-            recStack = {task: False for task in self.tasks}
             if not visited[task]:
+                recStack = {task: False for task in self.tasks}
                 c = has_cycle(task, visited, recStack)
                 if c:
                     cyc = get_cycle([c])
