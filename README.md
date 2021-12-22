@@ -2,18 +2,20 @@
 
 `markdown-plan` is a project planning syntax based on markdown. 
 
+Planning should be easy, maybe even fun, and always adaptive.
+
 [Live demo](https://rexgarland.dev/app/markdown-plan/)
 
-This extended syntax includes time estimates and time measurements, helping you improve your planning accuracy. It was designed for software freelancers who want to organize technical work on the scale of a few months or less, but I imagine it could be useful elsewhere.
+This extended syntax includes time estimates and time measurements, helping you improve your planning accuracy (within reason).
 
-Time estimates are given in three "t-shirt sizes" (small, medium and large) in order to (1) put a limit on expected precision and (2) encourage breaking up larger tasks into smaller:
+Time estimates are given in three ["t-shirt sizes"](https://www.youtube.com/watch?v=v21jg8wb1eU) (small, medium and large) in order to (1) put a limit on expected precision, (2) encourage breaking up larger tasks into smaller and (3) avoid micro-planning:
 ```txt
 . = 4 hours
 .. = 2 days
 ... = 1 week
 ```
 
-Time measurements are restricted to strings of the following characters:
+Time measurements are restricted to strings of the following characters, which you add as you work:
 ```txt
 h = 1 hour
 a = 4 hours
@@ -24,17 +26,19 @@ Example: app.plan.md
 
 ```md
 # Build iOS app [by 12-1]
-1. architecture planning [.] [hh] [done]
+1. architecture planning [.] [done]
 2. prototyping
 	- functional UI [..] [ah]
 	- backend [...] [dhh]
 3. clean up visual design [.]
-4. user tests / feedback [wait ..]
-5. app store material [.]
-	- write copy
-	- create screenshots
-	- add privacy policy
-6. submit for review [wait ..]
+4. prepare for submission
+	- user tests / feedback [wait ..]
+	- bug fixes [..] @(feedback)
+	- app store material [.]
+		- write copy
+		- create screenshots
+		- add privacy policy
+5. submit for review [wait ..]
 ```
 
 ![generated DAG](images/dag.png)
