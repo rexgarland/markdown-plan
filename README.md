@@ -2,7 +2,7 @@
 
 `markdown-plan` is a project planning syntax based on markdown. 
 
-[Demo](https://rexgarland.dev/app/markdown-plan/)
+[Live demo](https://rexgarland.dev/app/markdown-plan/)
 
 This extended syntax includes time estimates and time measurements, helping you improve your planning accuracy. It was designed for software freelancers who want to organize technical work on the scale of a few months or less, but I imagine it could be useful elsewhere.
 
@@ -40,6 +40,8 @@ Example: app.plan.md
 [Sublime Text package](https://github.com/rexgarland/MarkdownPlan) for syntax highlighting and live summaries:
 
 ![status-bar](images/status-bar.png)
+
+[Javascript implementation](https://github.com/rexgarland/markdown-plan-viewer) for running on the web.
 
 Rendering in a terminal (**WIP**):
 
