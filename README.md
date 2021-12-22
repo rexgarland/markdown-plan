@@ -37,6 +37,8 @@ Example: app.plan.md
 6. submit for review [wait ..]
 ```
 
+![generated DAG](images/dag.png)
+
 [Sublime Text package](https://github.com/rexgarland/MarkdownPlan) for syntax highlighting and live summaries:
 
 ![status-bar](images/status-bar.png)
