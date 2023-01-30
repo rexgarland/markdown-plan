@@ -6,9 +6,9 @@
 # Example plan
 
 1. [x] This task is done
-2. This next task
+2. The next task is bigger
    - With some sub-tasks
-   - This one is unique
+   - This task is unique
    - This one depends on @(unique)
 ```
 
@@ -24,13 +24,16 @@ All of these things make planning more transparent and, hopefully, fun.
 
 ## Examples
 
-A [burn-up chart](https://en.wikipedia.org/wiki/Cumulative_flow_diagram) made from tracking a markdown plan in git
+A [burn-up chart](https://en.wikipedia.org/wiki/Cumulative_flow_diagram) made from tracking a markdown plan in git:
+
 ![Burn-up chart](images/burn-up-chart.jpg)
 
-Vizualizing a markdown plan as a [DAG](https://en.m.wikipedia.org/wiki/Directed_acyclic_graph) of tasks
+Vizualizing a markdown plan as a [DAG](https://en.m.wikipedia.org/wiki/Directed_acyclic_graph) of tasks:
+
 ![Generated DAG](images/dag.png)
 
-A Gantt chart generated from a markdown plan (i.e. [topological ordering](https://en.wikipedia.org/wiki/Topological_sorting))
+A Gantt chart generated from a markdown plan (by [topological ordering](https://en.wikipedia.org/wiki/Topological_sorting)):
+
 ![Example schedule](images/schedule.png)
 
 ## Syntax
@@ -57,22 +60,32 @@ A code block, also ignored.
 ```
 ````
 
-Tasks can be organized into hierarchical lists, ordered or unordered, with optional explicit dependencies using `@(...)`.
+Tasks can be organized into hierarchical lists, ordered or unordered.
 
 ```md
-- my task @(task1, task2)
+1. First
+   - These two tasks...
+   - Can happen in parallel
+2. Second (must happen after First)
 ```
-
-Each dependency is a unique substring of the task it depends on.
-The substring cannot include commas.
 
 A task can be marked as "done" with a `[x]` at the beginning:
 
 ```
-
 - [x] my finished task
-
+- [ ] todo
 ```
+
+Tasks can also have explicit dependencies using the `@(...)` syntax, although this is rarely needed.
+
+```md
+- task1
+- task2
+- must be last @(task1, task2)
+```
+
+Each dependency is a unique substring of the task it depends on.
+The substring cannot include commas.
 
 ### Parsing
 
@@ -94,7 +107,7 @@ pip install markdown-plan
 ### Usage - command line
 
 Changes to a plan can be tracked with `git`, where each commit effectively links a version of the plan to its timestamp.
-This history can be used to make projections about when the plan will finish, or plot statistics over time.
+This history can be used to make projections about when the plan will finish, i.e. by plotting statistics over time.
 
 ```sh
 mdplan history example.plan.md # outputs json
@@ -160,8 +173,8 @@ Good plans should be:
 
 Plans that are hard to read or write are difficult to share.
 
-Plans that are easy to edit encourage adapting to change
-This is especially true if each edit is easy to document and the history of edits is never lost.
+Plans that are easy to edit encourage adapting to change.
+Editing is easier if the history of edits is never lost, and each edit can be documented.
 
 If a plan is easy to parse, people are encouraged to build their own tools to help interpret the plan.
 
