@@ -1,105 +1,170 @@
 # markdown-plan
 
-`markdown-plan` is a project planning syntax based on markdown. 
-
-Planning should be easy, maybe even fun, and always adaptive.
-
-[Live demo](https://rexgarland.dev/app/markdown-plan/)
-
-This extended syntax includes time estimates and time measurements, helping you improve your planning accuracy (within reason).
-
-Time estimates are given in three ["t-shirt sizes"](https://www.youtube.com/watch?v=v21jg8wb1eU) (small, medium and large) in order to (1) put a limit on expected precision, (2) encourage breaking up larger tasks into smaller and (3) avoid micro-planning:
-```txt
-. = 4 hours
-.. = 2 days
-... = 1 week
-```
-
-Time measurements are restricted to strings of the following characters, which you add as you work:
-```txt
-h = 1 hour
-a = 4 hours
-d = 1 day
-```
-
-Example: app.plan.md
+`markdown-plan` is a project planning syntax based on Markdown.
 
 ```md
-# Build iOS app [by 12-1]
-1. architecture planning [.] [done]
-2. prototyping
-	- functional UI [..] [ah]
-	- backend [...] [dhh]
-3. clean up visual design [.]
-4. prepare for submission
-	- user tests / feedback [wait ..]
-	- bug fixes [..] @(feedback)
-	- app store material [.]
-		- write copy
-		- create screenshots
-		- add privacy policy
-5. submit for review [wait ..]
+# Example plan
+
+1. [x] This task is done
+2. This next task
+   - With some sub-tasks
+   - This one is unique
+   - This one depends on @(unique)
 ```
 
-![generated DAG](images/dag.png)
+Writing your plan in Markdown offers some unique benefits:
 
-[Sublime Text package](https://github.com/rexgarland/MarkdownPlan) for syntax highlighting and live summaries:
+- Tracking it in version control
+  - Plotting progress over time to calculate better ETAs
+  - Documenting changes to the plan
+- Visualizing a plan (e.g. as a DAG of tasks)
+- Easily sharing a plan with others
 
-![status-bar](images/status-bar.png)
+All of these things make planning more transparent and, hopefully, fun.
 
-[Javascript implementation](https://github.com/rexgarland/markdown-plan-viewer) for running on the web.
+## Examples
 
-Rendering in a terminal (**WIP**):
+A [burn-up chart](https://en.wikipedia.org/wiki/Cumulative_flow_diagram) made from tracking a markdown plan in git
+![Burn-up chart](images/burn-up-chart.jpg)
 
-![gantt chart rendered in the terminal](images/example.png)
+Vizualizing a markdown plan as a [DAG](https://en.m.wikipedia.org/wiki/Directed_acyclic_graph) of tasks
+![Generated DAG](images/dag.png)
 
-## Reference
+A Gantt chart generated from a markdown plan (i.e. [topological ordering](https://en.wikipedia.org/wiki/Topological_sorting))
+![Example schedule](images/schedule.png)
 
-### Plans
+## Syntax
 
-A markdown plan is a markdown file with the extension `plan.md`. Each header or list item is parsed as a "task."
+Any line formatted as a list item or header is a task.
 
-Restrictions:
-* The file must have exactly one title line (`# <title>`) at the start
-* You cannot jump up more than one indentation level at a time in a nested list.
-* You cannot jump up more than one header level from one header to the next.
+```md
+# Title task
 
-The indentation restrictions are required in order to clearly denote parent-child relationships between tasks and create a directed acyclic graph (DAG), where the title task represents the only sink in the DAG.
-
-### Tasks
-
-Any line formatted as a list item or header is parsed as a task according to the following syntax.
-```
-- description [estimate] [measurements] [by <deadline>] @(dependencies)
-```
-
-There are two types of tasks:
-- work
-- wait (ones where the estimate has `wait` in it)
-
-Examples:
-```
-1. complete paperwork [.] [hh]
-
-- start online app [wait ..] [started 12-10]
-
-## setup server [by 12-10] @(domain)
+- child task
 ```
 
-Details:
-- An estimate is either:
-	- an amount of work you have to do, e.g. `..`
-	- a waiting period, e.g. `wait ..`
-- A measurement is either:
-	- a string of measurement characters (`h`, `a`, and `d`) and spaces or commas (which are just ignored)
-	- a start date for a wait task, e.g. `started 12-10`
-- A deadline is a month and day, e.g. `3-26`, prefaced by the `by` keyword
-- Dependencies written in the `@()` syntax are explicit dependencies of the DAG that you can enter manually. They can be any unique substrings of another task's description, separated by commas for multiple dependencies. Note: be careful not to create a dependency loop (the parser should warn you anyway if you do).
+Everything else is ignored by default.
 
-## Contributing
+````md
+- first task
 
-**Issues and PRs welcome!**
+This paragraph is ignored.
+
+- second task
+
+```
+A code block, also ignored.
+```
+````
+
+Tasks can be organized into hierarchical lists, ordered or unordered, with optional explicit dependencies using `@(...)`.
+
+```md
+- my task @(task1, task2)
+```
+
+Each dependency is a unique substring of the task it depends on.
+The substring cannot include commas.
+
+A task can be marked as "done" with a `[x]` at the beginning:
+
+```
+
+- [x] my finished task
+
+```
+
+### Parsing
+
+Any valid plan can be parsed into a [tree](<https://en.wikipedia.org/wiki/Tree_(data_structure)>) or a [DAG](https://en.m.wikipedia.org/wiki/Directed_acyclic_graph), depending on the user's needs.
+
+It is possible to create cyclic dependencies using the dependency notation above.
+A plan with cyclic dependencies is not a valid plan.
+
+## Tools
+
+This repo ships with some basic CLI tools and a parsing library.
+
+### Install
+
+```sh
+pip install markdown-plan
+```
+
+### Usage - command line
+
+Changes to a plan can be tracked with `git`, where each commit effectively links a version of the plan to its timestamp.
+This history can be used to make projections about when the plan will finish, or plot statistics over time.
+
+```sh
+mdplan history example.plan.md # outputs json
+mdplan plot example.plan.md # opens a plot (using that json data)
+```
+
+![Burn-up chart in browser](images/browser-chart.png)
+
+### Usage - library
+
+Users are encouraged to create their own tools as they see fit.
+The parsing library is designed to be easily extended.
+
+```python
+from mdplan.parse import parse_tree
+
+# ... get the plan text ...
+tree = parse_tree(plan_text)
+
+# count the leaves
+num_tasks = len(tree.leaves)
+
+# display the root task's description
+root_node = tree.roots.pop()
+task = root.value
+print(task.description)
+
+# ... see the Tree, Node, and Task classes for details
+```
+
+```python
+from mdplan.git import GitHistory
+
+# ... get the path to a plan ...
+history = GitHistory(path)
+
+# a history is just a chronological list of version
+dates = [version.datetime for version in history]
+trees = [version.tree for version in history]
+statistics = [version.task_statistics for version in history]
+
+# ... see the GitVersion class for more details
+```
+
+## Used by
+
+- [markdown-plan-viewer](https://github.com/rexgarland/markdown-plan-viewer)
+
+## Motivation
+
+The main goal is to make planning easier and more useful.
+Ultimately, planning should help us answer questions like:
+
+- "When will this be done?"
+- "How are we doing so far?"
+- "What actually happened?"
+
+Good plans should be:
+
+- easy to create
+- easy to adapt
+- easy to share
+
+Plans that are hard to read or write are difficult to share.
+
+Plans that are easy to edit encourage adapting to change
+This is especially true if each edit is easy to document and the history of edits is never lost.
+
+If a plan is easy to parse, people are encouraged to build their own tools to help interpret the plan.
 
 ## Acknowledgements
 
-This project was inspired by Thomas Figg's "[Programming is Terrible](https://www.youtube.com/watch?v=csyL9EC0S0c)," Andrew Steel's [gantt](https://github.com/andrew-ls/gantt) repo, and Dave Farley's "[How to Estimate Software Development Time](https://www.youtube.com/watch?v=v21jg8wb1eU)."
+This project was inspired by Thomas Figg's "[Programming is Terrible](https://www.youtube.com/watch?v=csyL9EC0S0c)," Andrew Steel's [gantt](https://github.com/andrew-ls/gantt) repo, Dave Farley's video "[How to Estimate Software Development Time](https://www.youtube.com/watch?v=v21jg8wb1eU)," and Allen Holub's talk "[No Estimates](https://www.youtube.com/watch?v=QVBlnCTu9Ms)" (itself inspired by the book by [Vasco Duarte](https://www.amazon.com/NoEstimates-Measure-Project-Progress-Estimating-ebook/dp/B01FWMSBBK)).

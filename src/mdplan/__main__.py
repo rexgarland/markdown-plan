@@ -1,19 +1,45 @@
 import argparse
 from pathlib import Path
 
-from .dag import convert_to_dag
+from .git.history import GitHistory
+from .git.plot import GitPlot
 
-def is_plan(f):
-    return f.endswith('.plan.md') and Path(f).is_file()
+description = """
+A tool for analyzing markdown plans
+"""
+
+epilog = """
+Analysis details:
+* history: parses the git history of a plan file, outputting version statistics as JSON
+* plot: opens a browser to display a plan's history (as a burn-up chart)
+ 
+"""
+
 
 def main():
-    parser = argparse.ArgumentParser('Convert a markdown plan to a JSON DAG.')
-    parser.add_argument('file', type=str)
-    parser.add_argument('--output', default=None)
+    parser = argparse.ArgumentParser(
+        description=description,
+        epilog=epilog,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument(
+        "command", choices=["history", "plot"], help="the type of analysis to run"
+    )
+    parser.add_argument(
+        "planfile",
+        type=Path,
+        help="the path to a markdown plan",
+    )
     args = parser.parse_args()
 
-    outfile = convert_to_dag(args.file, jsonfile=args.output)
-    print(outfile)
+    if args.command == "history":
+        history = GitHistory(args.planfile)
+        print(history.to_json())
+    if args.command == "plot":
+        history = GitHistory(args.planfile)
+        plot = GitPlot(history)
+        plot.open()
 
-if __name__=='__main__':
+
+if __name__ == "__main__":
     main()
