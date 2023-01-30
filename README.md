@@ -28,7 +28,7 @@ A [burn-up chart](https://en.wikipedia.org/wiki/Cumulative_flow_diagram) made fr
 
 ![Burn-up chart](images/burn-up-chart.jpg)
 
-Vizualizing a markdown plan as a [DAG](https://en.m.wikipedia.org/wiki/Directed_acyclic_graph) of tasks:
+Vizualizing a markdown plan as a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) of tasks:
 
 ![Generated DAG](images/dag.png)
 
@@ -89,7 +89,7 @@ The substring cannot include commas.
 
 ### Parsing
 
-Any valid plan can be parsed into a [tree](<https://en.wikipedia.org/wiki/Tree_(data_structure)>) or a [DAG](https://en.m.wikipedia.org/wiki/Directed_acyclic_graph), depending on the user's needs.
+Any valid plan can be parsed into a [tree](<https://en.wikipedia.org/wiki/Tree_(data_structure)>) or a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph), depending on the user's needs.
 
 It is possible to create cyclic dependencies using the dependency notation above.
 A plan with cyclic dependencies is not a valid plan.
