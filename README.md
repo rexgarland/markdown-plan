@@ -6,9 +6,9 @@
 # Example plan
 
 1. [x] This task is done
-2. The next task is bigger
-   - With some sub-tasks
-   - This task is unique
+2. This one is bigger
+   - It has sub-tasks
+   - This one is unique
    - This one depends on @(unique)
 ```
 
@@ -20,19 +20,19 @@ Writing your plan in Markdown offers some unique benefits:
 - Visualizing a plan (e.g. as a DAG of tasks)
 - Easily sharing a plan with others
 
-All of these things make planning more transparent and, hopefully, fun.
+All of these things make planning more transparent and flexible to change.
 
 ## Examples
+
+Visualizing a markdown plan as a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) of tasks ([demo](https://rexgarland.dev/app/markdown-plan)):
+
+![Generated DAG](images/dag.png)
 
 A [burn-up chart](https://en.wikipedia.org/wiki/Cumulative_flow_diagram) made from tracking a markdown plan in git:
 
 ![Burn-up chart](images/burn-up-chart.jpg)
 
-Vizualizing a markdown plan as a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) of tasks:
-
-![Generated DAG](images/dag.png)
-
-A Gantt chart generated from a markdown plan (by [topological ordering](https://en.wikipedia.org/wiki/Topological_sorting)):
+A Gantt chart generated from a markdown plan ([topological ordering](https://en.wikipedia.org/wiki/Topological_sorting)):
 
 ![Example schedule](images/schedule.png)
 
@@ -46,7 +46,7 @@ Any line formatted as a list item or header is a task.
 - child task
 ```
 
-Everything else is ignored by default.
+Everything else is ignored.
 
 ````md
 - first task
@@ -63,13 +63,13 @@ A code block, also ignored.
 Tasks can be organized into hierarchical lists, ordered or unordered.
 
 ```md
-1. First
-   - These two tasks...
-   - Can happen in parallel
-2. Second (must happen after First)
+1. first
+   - these tasks
+   - in parallel
+2. second, after first
 ```
 
-A task can be marked as "done" with a `[x]` at the beginning:
+A task can be marked as "done" with an `[x]` at the beginning:
 
 ```
 - [x] my finished task
@@ -106,12 +106,12 @@ pip install markdown-plan
 
 ### Usage - command line
 
-Changes to a plan can be tracked with `git`, where each commit effectively links a version of the plan to its timestamp.
-This history can be used to make projections about when the plan will finish, i.e. by plotting statistics over time.
+Changes to a plan can be tracked with `git`, where each commit effectively links a version of the plan to a timestamp.
+This history can be used to plot statistics over time.
 
 ```sh
 mdplan history example.plan.md # outputs json
-mdplan plot example.plan.md # opens a plot (using that json data)
+mdplan plot example.plan.md # opens a plot
 ```
 
 ![Burn-up chart in browser](images/browser-chart.png)
@@ -144,7 +144,7 @@ from mdplan.git import GitHistory
 # ... get the path to a plan ...
 history = GitHistory(path)
 
-# a history is just a chronological list of version
+# a history is just a chronological list of versions
 dates = [version.datetime for version in history]
 trees = [version.tree for version in history]
 statistics = [version.task_statistics for version in history]
