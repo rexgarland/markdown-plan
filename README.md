@@ -131,7 +131,7 @@ tree = parse_tree(plan_text)
 num_tasks = len(tree.leaves)
 
 # display the root task's description
-root_node = tree.roots.pop()
+root = tree.roots.pop()
 task = root.value
 print(task.description)
 
