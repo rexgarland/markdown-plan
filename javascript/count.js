@@ -1,5 +1,5 @@
 function isHeader(line) {
-  return line.startsWith("# ");
+  return line.match(/^#{1,6}\s/);
 }
 
 function isListItem(line) {

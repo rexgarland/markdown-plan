@@ -7,6 +7,12 @@ describe("counting tasks", () => {
     expect(total).toBe(1);
   });
 
+  it("should count multi headers", () => {
+    const plan = "### subheader";
+    const { total } = countTasks(plan);
+    expect(total).toBe(1);
+  });
+
   it("should count a list item", () => {
     const plan = "- hello";
     const { total } = countTasks(plan);
