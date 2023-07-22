@@ -3,8 +3,7 @@ function isHeader(line) {
 }
 
 function isListItem(line) {
-  const stripped = line.trim();
-  return stripped.startsWith("- ") || stripped.startsWith("* ");
+  return line.match(/^\s*(-|\*)\s/);
 }
 
 function isTask(line) {
