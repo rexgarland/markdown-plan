@@ -22,9 +22,17 @@ function countPrecedingWhiteSpace(line) {
   return num;
 }
 
+function parseHeaderLevel(headerLine) {
+  const match = headerLine.match(/^(#{1,6})\s/);
+  const hashes = match[1];
+  return hashes.length;
+}
+
 function taskLevel(taskLine) {
   if (isHeader(taskLine)) {
-    return -1;
+    const headerLevel = parseHeaderLevel(taskLine);
+    // h6 corresponds to -1
+    return headerLevel - 7;
   }
   return countPrecedingWhiteSpace(taskLine);
 }

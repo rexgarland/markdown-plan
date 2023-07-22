@@ -25,4 +25,11 @@ describe("counting tasks", () => {
     const { total } = countTasks(plan);
     expect(total).toBe(1);
   });
+
+  it("should consider not count headers with children", () => {
+    const plan = `# title
+- task`;
+    const { total } = countTasks(plan);
+    expect(total).toBe(1);
+  });
 });
