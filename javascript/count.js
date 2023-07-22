@@ -10,7 +10,7 @@ function isTask(line) {
   return isHeader(line) || isListItem(line);
 }
 
-function countPrecedingWhiteSpace(line) {
+function parseListLevel(line) {
   let num = 0;
   for (const char of line) {
     if (char === " ") {
@@ -34,7 +34,7 @@ function parseLevel(taskLine) {
     // h6 corresponds to -1
     return headerLevel - 7;
   }
-  return countPrecedingWhiteSpace(taskLine);
+  return parseListLevel(taskLine);
 }
 
 function parseDescription(taskLine) {
@@ -52,16 +52,13 @@ function isCompleted(taskLine) {
   return description.match(/^\s*\[x\]\s/);
 }
 
-export function countTasks(plan) {
-  const lines = plan.split("\n");
-
-  const taskLines = lines.filter(isTask);
+function filterLeaves(taskLines) {
   const levels = taskLines.map(parseLevel);
 
-  const leaveTaskLines = taskLines.filter((_, i) => {
-    const isLastTask = i === taskLines.length - 1;
+  return taskLines.filter((_, i) => {
+    const isLastLine = i === taskLines.length - 1;
 
-    if (isLastTask) {
+    if (isLastLine) {
       return true;
     }
 
@@ -71,8 +68,16 @@ export function countTasks(plan) {
 
     return !isParent;
   });
+}
+
+export function countTasks(plan) {
+  const lines = plan.split("\n");
+
+  const taskLines = lines.filter(isTask);
+  const leaveTaskLines = filterLeaves(taskLines);
 
   const total = leaveTaskLines.length;
+
   const completed = leaveTaskLines.filter(isCompleted).length;
 
   return { total, completed };
