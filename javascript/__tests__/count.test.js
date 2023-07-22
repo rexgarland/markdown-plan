@@ -12,4 +12,11 @@ describe("counting tasks", () => {
     const { total } = countTasks(plan);
     expect(total).toBe(1);
   });
+
+  it("should only count leaves", () => {
+    const plan = `- parent
+  - child`;
+    const { total } = countTasks(plan);
+    expect(total).toBe(1);
+  });
 });
