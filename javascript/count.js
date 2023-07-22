@@ -1,5 +1,14 @@
+function isHeader(line) {
+  return line.startsWith("# ");
+}
+
+function isListItem(line) {
+  const stripped = line.trim();
+  return stripped.startsWith("- ") || stripped.startsWith("* ");
+}
+
 function isTask(line) {
-  return line.startsWith("# ") || line.startsWith("- ");
+  return isHeader(line) || isListItem(line);
 }
 
 export function countTasks(plan) {
