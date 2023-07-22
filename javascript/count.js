@@ -37,6 +37,21 @@ function taskLevel(taskLine) {
   return countPrecedingWhiteSpace(taskLine);
 }
 
+function parseDescription(taskLine) {
+  let match;
+  if (isHeader(taskLine)) {
+    match = taskLine.match(/^#{1,6}\s(.*)/);
+    return match[1];
+  }
+  match = taskLine.match(/^\s*(-|\*)\s(.*)/);
+  return match[2];
+}
+
+function isCompleted(taskLine) {
+  const description = parseDescription(taskLine);
+  return description.match(/^\s*\[x\]\s/);
+}
+
 export function countTasks(plan) {
   const lines = plan.split("\n");
 
@@ -58,7 +73,7 @@ export function countTasks(plan) {
   });
 
   const total = leaveTaskLines.length;
-  const completed = 0;
+  const completed = leaveTaskLines.filter(isCompleted).length;
 
   return { total, completed };
 }

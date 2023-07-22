@@ -32,4 +32,19 @@ describe("counting tasks", () => {
     const { total } = countTasks(plan);
     expect(total).toBe(1);
   });
+
+  it("should handle multiple sublevels", () => {
+    const plan = `- parent1
+  - child1
+  - parent2
+    - child2`;
+    const { total } = countTasks(plan);
+    expect(total).toBe(2);
+  });
+
+  it("should count done tasks", () => {
+    const plan = "- [x] hello";
+    const { completed } = countTasks(plan);
+    expect(completed).toBe(1);
+  });
 });
