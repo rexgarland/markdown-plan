@@ -28,7 +28,7 @@ function parseHeaderLevel(headerLine) {
   return hashes.length;
 }
 
-function taskLevel(taskLine) {
+function parseLevel(taskLine) {
   if (isHeader(taskLine)) {
     const headerLevel = parseHeaderLevel(taskLine);
     // h6 corresponds to -1
@@ -56,7 +56,7 @@ export function countTasks(plan) {
   const lines = plan.split("\n");
 
   const taskLines = lines.filter(isTask);
-  const levels = taskLines.map(taskLevel);
+  const levels = taskLines.map(parseLevel);
 
   const leaveTaskLines = taskLines.filter((_, i) => {
     const isLastTask = i === taskLines.length - 1;
