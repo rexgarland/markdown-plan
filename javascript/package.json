@@ -1,0 +1,28 @@
+{
+  "name": "markdown-plan",
+  "version": "1.0.0",
+  "description": "project planning in markdown",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rexgarland/markdown-plan"
+  },
+  "keywords": [
+    "markdown",
+    "productivity"
+  ],
+  "author": "Rex Garland <rex@rexgarland.dev> (https://rexgarland.dev/)",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@babel/preset-env": "^7.22.9",
+    "jest": "^29.6.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
+  }
+}
