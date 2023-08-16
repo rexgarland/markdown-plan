@@ -22,6 +22,8 @@ Writing your plan in Markdown offers some unique benefits:
 
 All of these things make planning more transparent and flexible to change.
 
+See the [desktop app](https://rexgarland.github.io/SimplePlanner/) for a friendly user experience.
+
 ## Examples
 
 Visualizing a markdown plan as a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) of tasks ([demo](https://rexgarland.dev/app/markdown-plan)):
