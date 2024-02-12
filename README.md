@@ -103,7 +103,7 @@ This repo ships with some basic CLI tools and a parsing library.
 ### Install
 
 ```sh
-pip install markdown-plan
+pipx install markdown-plan
 ```
 
 ### Usage - command line
