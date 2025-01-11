@@ -34,6 +34,10 @@ A [burn-up chart](https://en.wikipedia.org/wiki/Cumulative_flow_diagram) made fr
 
 ![Burn-up chart](images/burn-up-chart.jpg)
 
+A little [desktop app](https://github.com/rexgarland/SimplePlanner), for those who don't want to think about git.
+
+![Desktop app](images/desktop-app.png)
+
 A Gantt chart generated from a markdown plan ([topological ordering](https://en.wikipedia.org/wiki/Topological_sorting)):
 
 ![Example schedule](images/schedule.png)
