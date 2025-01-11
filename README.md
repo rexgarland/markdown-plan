@@ -22,26 +22,6 @@ Writing your plan in Markdown offers some unique benefits:
 
 All of these things make planning more transparent and flexible to change.
 
-See the [desktop app](https://rexgarland.github.io/SimplePlanner/) for a friendly user experience.
-
-## Examples
-
-Visualizing a markdown plan as a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) of tasks ([demo](https://rexgarland.dev/app/markdown-plan)):
-
-![Generated DAG](images/dag.png)
-
-A [burn-up chart](https://en.wikipedia.org/wiki/Cumulative_flow_diagram) made from tracking a markdown plan in git:
-
-![Burn-up chart](images/burn-up-chart.jpg)
-
-A little [desktop app](https://github.com/rexgarland/SimplePlanner), for those who don't want to think about git.
-
-![Desktop app](images/desktop-app.jpg)
-
-A Gantt chart generated from a markdown plan ([topological ordering](https://en.wikipedia.org/wiki/Topological_sorting)):
-
-![Example schedule](images/schedule.png)
-
 ## Syntax
 
 Any line formatted as a list item or header is a task.
@@ -100,32 +80,32 @@ Any valid plan can be parsed into a [tree](<https://en.wikipedia.org/wiki/Tree_(
 It is possible to create cyclic dependencies using the dependency notation above.
 A plan with cyclic dependencies is not a valid plan.
 
-## Tools
-
-This repo ships with some basic CLI tools and a parsing library.
-
-### Install
+## Installing
 
 ```sh
 pipx install markdown-plan
 ```
 
-### Usage - command line
+## Usage
 
-Changes to a plan can be tracked with `git`, where each commit effectively links a version of the plan to a timestamp.
-This history can be used to plot statistics over time.
+This repo only ships with some basic CLI tools and a parsing library.
+See examples below for more sophisticated tools.
 
-```sh
+Basic usage:
+
+```shell
+# create example.plan.md, commit changes to it with git
+
+# then, from within that git repo...
 mdplan history example.plan.md # outputs json
 mdplan plot example.plan.md # opens a plot
 ```
 
 ![Burn-up chart in browser](images/browser-chart.png)
 
-### Usage - library
+### Library
 
-Users are encouraged to create their own tools as they see fit.
-The parsing library is designed to be easily extended.
+Example usage: counting tasks, displaying a task
 
 ```python
 from mdplan.parse import parse_tree
@@ -144,6 +124,8 @@ print(task.description)
 # ... see the Tree, Node, and Task classes for details
 ```
 
+Example usage: getting data from multiple commits
+
 ```python
 from mdplan.git import GitHistory
 
@@ -158,9 +140,21 @@ statistics = [version.task_statistics for version in history]
 # ... see the GitVersion class for more details
 ```
 
-## Used by
+## Other examples
 
-- [markdown-plan-viewer](https://github.com/rexgarland/markdown-plan-viewer)
+There are various other tools / repos for visualizing a plan. For example...
+
+A Gantt chart generated from a markdown plan ([topological ordering](https://en.wikipedia.org/wiki/Topological_sorting)):
+
+![Example schedule](images/schedule.png)
+
+A little [desktop app](https://github.com/rexgarland/SimplePlanner), for those who don't want to think about git.
+
+![Desktop app](images/desktop-app.jpg)
+
+Visualizing a markdown plan as a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) of tasks ([demo](https://rexgarland.dev/app/markdown-plan)):
+
+![Generated DAG](images/dag.png)
 
 ## Motivation
 
