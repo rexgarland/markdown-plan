@@ -148,9 +148,9 @@ Python code:
 cd python
 
 # create virtual environment (try pipx instead if this fails)
-python -m venv venv
-. venv/bin/activate
-python -m pip install .
+python3 -m venv venv
+source venv/bin/activate
+python3 -m pip install .
 
 # run all tests
 pytest
