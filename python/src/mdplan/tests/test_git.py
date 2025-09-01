@@ -67,3 +67,5 @@ def test_renders_correct_json_history(plan):
     history = GitHistory(plan)
     json = history.to_json()
     assert json == expected_json
+
+def test_does_not_crash_if_encountering_unparseable_commit(plan):
