@@ -109,5 +109,16 @@ class GitHistory(Sequence):
         self.versions.sort(key=lambda v: v.datetime)
 
     def to_json(self) -> str:
-        data = {"versions": [version.as_data() for version in self.versions]}
+        version_jsons = []
+
+        for version in self.versions:
+            try:
+                json_txt = version.as_data()
+                version_jsons.append(json_txt)
+            except Exception as e:
+                # Just ignore it as a bad commit.
+                # Sometimes one of the commits will not parse, e.g. because of indent error.
+                print(e)
+
+        data = {"versions": version_jsons}
         return json.dumps(data)

@@ -68,4 +68,6 @@ def test_renders_correct_json_history(plan):
     json = history.to_json()
     assert json == expected_json
 
-def test_does_not_crash_if_encountering_unparseable_commit(plan):
+def test_does_not_crash_if_encountering_unparseable_commit(plan_with_bad_commit):
+    history = GitHistory(plan_with_bad_commit)
+    json = history.to_json() # This could fail because one of the commit has a bad indent. See git log in test repo folder.

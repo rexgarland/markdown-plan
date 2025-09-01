@@ -18,6 +18,12 @@ config_nested = {
     "plan_file": "plans/test.plan.md",
 }
 
+config_bad_commit = {
+    "repo_folder": "bad_commit_repo",
+    "repo_archive": "data/bad_commit_repo.tar.gz",
+    "plan_file": "test.plan.md",
+}
+
 
 def clone_repo(config, folder):
     archive_path = Path(this_folder) / config["repo_archive"]
@@ -48,3 +54,15 @@ def repo_nested():
 @fixture
 def plan_nested(repo_nested):
     return str(Path(repo_nested) / config_nested["plan_file"])
+
+
+@fixture
+def repo_bad_commit():
+    with TemporaryDirectory() as tmpdir:
+        repodir = clone_repo(config_bad_commit, tmpdir)
+        yield str(repodir)
+
+
+@fixture
+def plan_with_bad_commit(repo_bad_commit):
+    return str(Path(repo_bad_commit) / config_bad_commit["plan_file"])
