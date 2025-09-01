@@ -8,9 +8,9 @@ if [[ "${TRACE-0}" == "1" ]]; then
 fi
 
 if [[ "${1-}" =~ ^-*h(elp)?$ ]]; then
-	echo 'Usage: ./package.sh arg-one arg-two
+	echo 'Usage: ./unpackage.sh repo_folder_name
 
-Creates a package for the repo.
+Expands an example data repo for use in testing.
 '
 	exit
 fi
