@@ -140,6 +140,22 @@ statistics = [version.task_statistics for version in history]
 # ... see the GitVersion class for more details
 ```
 
+## Testing
+
+Python code:
+
+```sh
+cd python
+
+# create virtual environment (try pipx instead if this fails)
+python -m venv venv
+. venv/bin/activate
+python -m pip install .
+
+# run all tests
+pytest
+```
+
 ## Other examples
 
 There are various other tools / repos for visualizing a plan. For example...
