@@ -1,6 +1,6 @@
 # markdown-plan
 
-`markdown-plan` is a project planning syntax based on Markdown.
+`markdown-plan` is a project planning syntax for markdown.
 
 ```md
 # Example plan
@@ -12,7 +12,7 @@
    - This one depends on @(unique)
 ```
 
-Writing your plan in Markdown offers some unique benefits:
+Writing your plan in markdown offers some unique benefits:
 
 - Tracking it in version control
   - Plotting progress over time to calculate better ETAs
@@ -194,6 +194,6 @@ Editing is easier if the history of edits is never lost, and each edit can be do
 
 If a plan is easy to parse, people are encouraged to build their own tools to help interpret the plan.
 
-## Acknowledgements
+## Prior Art
 
 This project was inspired by Thomas Figg's "[Programming is Terrible](https://www.youtube.com/watch?v=csyL9EC0S0c)," Andrew Steel's [gantt](https://github.com/andrew-ls/gantt) repo, Dave Farley's video "[How to Estimate Software Development Time](https://www.youtube.com/watch?v=v21jg8wb1eU)," and Allen Holub's talk "[No Estimates](https://www.youtube.com/watch?v=QVBlnCTu9Ms)" (itself inspired by the book by [Vasco Duarte](https://www.amazon.com/NoEstimates-Measure-Project-Progress-Estimating-ebook/dp/B01FWMSBBK)).
