@@ -168,7 +168,7 @@ A little [desktop app](https://github.com/rexgarland/SimplePlanner), for those w
 
 ![Desktop app](images/desktop-app.jpg)
 
-Visualizing a markdown plan as a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) of tasks ([demo](https://rexgarland.dev/app/markdown-plan)):
+Visualizing a markdown plan as a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) of tasks ([demo](https://rexgarland.dev/app/markdown-plan-web)):
 
 ![Generated DAG](images/dag.png)
 
