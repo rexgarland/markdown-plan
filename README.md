@@ -156,7 +156,7 @@ python3 -m pip install .
 pytest
 ```
 
-## Other examples
+## Examples
 
 There are various other tools / repos for visualizing a plan. For example...
 
@@ -167,6 +167,10 @@ A Gantt chart generated from a markdown plan ([topological ordering](https://en.
 A little [desktop app](https://github.com/rexgarland/SimplePlanner), for those who don't want to think about git.
 
 ![Desktop app](images/desktop-app.jpg)
+
+A [mobile app](https://rexgarland.dev/app/markdown-plan/), for on-the-go.
+
+![mobile app screenshot](images/mobile-app.png)
 
 Visualizing a markdown plan as a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) of tasks ([demo](https://rexgarland.dev/app/markdown-plan-web)):
 
